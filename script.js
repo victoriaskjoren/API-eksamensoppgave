@@ -1,4 +1,8 @@
 class User {
+
+    interests = [];
+    matches = [];
+
     constructor (firstName, lastName, gender, birthDay){
         this.firstName = firstName;
         this.lastName = lastName;
@@ -13,12 +17,17 @@ class User {
         return Math.abs(age_dt.getUTCFullYear() - 1970);
     }
 
+    checkAge(){
+        if (this.calculateAge < 18)
+            return "Not old enough"
+    }
+
     fullName() {
         return this.firstName + " " + this.lastName;
     }
 }
 
-class PaidUser extends User{
+class PaidUser extends User {
     constructor (firstName, lastName, gender, birthDay, cardName, cardNumber, ccv){
         super (firstName, lastName, gender, birthDay)
         this.cardName = cardName;
@@ -57,22 +66,21 @@ class Image{
 }
 
 class Interest {
-    constructor (interests){
-        this.interests = []
+    constructor (){
+        
     }
 }
 
 class Match {
-    constructor(matches){
+    constructor(){
 
-        this.mathces = []
     }
 }
 
 
 
-const user1 = new User("Victoria", "Skjøren", [2000, 05, 12], "cardName", "cardNumber", "ccv")
-const user2 = new User("Hayley, Sugden", "female", [20001, 11,27])
+const user1 = new PaidUser("Victoria", "Skjøren", [2000, 05, 12], "cardName", "cardNumber", "ccv")
+const user2 = new FreeUser("Hayley, Sugden", "female", [2001, 11,27])
 
 
 

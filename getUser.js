@@ -1,31 +1,14 @@
-function getUser(){
+function getUser(req, res){
 
-    return ("userIndex");
-
-
-    {/* <user> 
-
-    <paymentuser>
-    
-    <creditcard> </creditcard>
-    
-     </paymentuser>
-    
-    <freeuser> </freeuser>
-    
-    <image> </image>
-    
-    </user> */}
-
+    return res.status(200).send("a")
 }
 
-
-
-getUser()
+module.exports = getUser
 
 
 
 
+// hvordan få metodene i User til å bli brukt i child classes,hva skal det stå før .
 // hvordan får jeg bruker informasjonen fra script.js inn i de ulike filene model?
 // hvordan skal jeg sortere klassene slik at det gir mening, må først opprette en User,så skal de andre
 // klassene væøre child av den men hvordan vet man da hvem som er paid og ikke og bilde, interest etc
