@@ -3,11 +3,12 @@ class User {
     interests = [];
     matches = [];
 
-    constructor (firstName, lastName, gender, birthDay){
+    constructor (firstName, lastName, gender, birthDay, userID){
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
         this.birthDay = birthDay;
+        this.userID = userID
     }
 
     calculateAge() {
@@ -28,8 +29,8 @@ class User {
 }
 
 class PaidUser extends User {
-    constructor (firstName, lastName, gender, birthDay, cardName, cardNumber, ccv){
-        super (firstName, lastName, gender, birthDay)
+    constructor (firstName, lastName, gender, birthDay, userID, cardName, cardNumber, ccv){
+        super (firstName, lastName, gender, birthDay, userID)
         this.cardName = cardName;
         this.cardNumber = cardNumber;
         this.ccv = ccv;
@@ -52,8 +53,8 @@ class PaidUser extends User {
     
 }
 class FreeUser extends User{
-    constructor (firstName, lastName, gender, birthDay){
-        super(firstName, lastName, gender, birthDay);
+    constructor (firstName, lastName, gender, birthDay, userID){
+        super(firstName, lastName, gender, birthDay, userID);
         
     
     }
@@ -65,22 +66,44 @@ class Image{
     }
 }
 
-class Interest {
-    constructor (){
-        
+class Interests {
+    constructor (name){
+        this.name = name;
+
     }
 }
 
 class Match {
-    constructor(){
+    constructor(user){
+        this.user = user;
 
     }
 }
 
+const interest1 = new Interests("Cars")
+const interest2 = new Interests("Nature")
+
+const match1 = new Match ("Jeppe")
+const match2 = new Match ("Oskar")
+
+const user1 = new PaidUser("Victoria", "Skjøren", "female", [2000, 05, 12], 1, "cardName", "cardNumber", "ccv");
+const user2 = new FreeUser("Hayley", "Sugden", "female", [2001, 11,27], 2);
+
+const users = [user1, user2];
+
+user1.interests= [interest1, interest2];
+user2.interests = [interest2];
+
+user1.matches = [match2]
+user2.matches = [match1]
 
 
-const user1 = new PaidUser("Victoria", "Skjøren", [2000, 05, 12], "cardName", "cardNumber", "ccv")
-const user2 = new FreeUser("Hayley, Sugden", "female", [2001, 11,27])
+module.exports = {
+    getUsers() {
+        return users;
+    },
+    FreeUser: FreeUser
+}
 
 
 

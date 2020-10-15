@@ -4,15 +4,25 @@ const app = express()
 const port = 3000
 const fs = require("fs")
 const http = require("http")
-const jws = require("jsonwebtoken")
-const getUser = require ("./getUser")
-const getInterests = require("./GetInterest")
-const getMatch = require("./GetMatch")
+const jwt = require("jsonwebtoken")
+const {getUsers, deleteUser, createUser} = require ("./usersEndpoints")
+const {getInterests, deleteInterest, createInterest} = require("./interestsEndpoints")
+const {getMatches, deleteMatch, newMatch} = require("./matchesEndpoint")
 
 
-app.get("/User", isAuthorized, getUser )
-//app.get("/Interests",isAuthorized, getInterests )
-//app.get("/Matches", isAuthorized, getMatch )
+app.get("/users", isAuthorized, getUsers )
+app.delete("/users/:userID", isAuthorized, deleteUser )
+app.post("/users", isAuthorized, createUser )
+
+app.get("/users/:userID/interests", isAuthorized, getInterests )
+app.delete("/users/:userID/interests/:interest", isAuthorized, deleteInterest )
+app.post("/users/:userID/interests", isAuthorized, createInterest )
+
+app.get("/matches/:userID/matches", isAuthorized, getMatches )
+app.delete("/users/:userID/matches/;match", isAuthorized, deleteMatch )
+app.post("/users/userID/matches", isAuthorized, newMatch )
+
+
 
 app.get("/jwt", (req,res) => {
     let privateKey = fs.readFileSync("./private.pem", "utf8");
@@ -22,8 +32,6 @@ app.get("/jwt", (req,res) => {
 
 
 function isAuthorized ( req, res, next ){
-    console.log("test")
-
     if (typeof req.headers.authorization !== "undefined"){
         let token = req.headers.authorization.split(" ")[1];
         let privateKey  = fs.readFileSync("./private.pem", "utf8");
@@ -35,7 +43,7 @@ function isAuthorized ( req, res, next ){
 
             console.log(decoded);
 
-            return next();
+            next();
         })
     } else {
         return res.status(401).json({error : "Not authorized"})
