@@ -1,4 +1,4 @@
-const { getUsers, FreeUser } = require("./script");
+const { getUsers, FreeUser, Interest: Interest } = require("./script");
 
 module.exports = {
     getUsers(req, res){

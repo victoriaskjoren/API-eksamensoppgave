@@ -1,7 +1,7 @@
 
 const express = require ("express")
 const app = express()
-const port = 3000
+const port = 3001
 const fs = require("fs")
 const http = require("http")
 const jwt = require("jsonwebtoken")
@@ -18,7 +18,7 @@ app.get("/users/:userID/interests", isAuthorized, getInterests )
 app.delete("/users/:userID/interests/:interest", isAuthorized, deleteInterest )
 app.post("/users/:userID/interests", isAuthorized, createInterest )
 
-app.get("/matches/:userID/matches", isAuthorized, getMatches )
+app.get("/users/:userID/matches", isAuthorized, getMatches )
 app.delete("/users/:userID/matches/;match", isAuthorized, deleteMatch )
 app.post("/users/userID/matches", isAuthorized, newMatch )
 

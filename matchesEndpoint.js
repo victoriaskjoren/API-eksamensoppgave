@@ -1,30 +1,34 @@
-const { getUsers, matches  } = require("./script");
+
+const { getUsers, getMatches, Match} = require("./script");
 
 module.exports = {
     getMatches(req, res){
-        const users = getUsers();    
+        const users = getUsers();   
         const userID = req.params.userID
         console.log (userID);
         for (i =0; i < users.length; i++) {
+            if (users[i].matches === [""])
+                return res.status(404).send("This user has 0 matches");
             if (users[i].userID == userID)  {
                 return res.status(200).send(users[i].matches);
             }
+            
         }
 
     
-        return res.status(404).send("Match doesn´t exist!")
+        return res.status(404).send("User doesn´t exist!")
     
     },
     deleteMatch(req, res){
         const users = getUsers(); 
-        const interest =  req.params.interest  
+        const match =  req.params.match  
         const userID = req.params.userID
         for (i =0; i < users.length; i++) {
             if (users[i].userID == userID)  {
-                for (j =0; j < users[i].interests.length; j++) {
-                    if (users[i].interests[j].name == interests)  {
+                for (j =0; j < users[i].match.length; j++) {
+                    if (users[i].matches[j].user == matches)  {
                         users.splice(i,1)
-                    return res.status(200).send("Interest deleted!");
+                    return res.status(200).send("Match deleted!");
                 }
             }
         }
@@ -35,14 +39,14 @@ module.exports = {
             },
     newMatch(req,res){
         const users = getUsers();
-        const interest3 = new Interest ("Animals");
-        users.push(interest3)
-        return res.status(201).send(interest3)
+        const match3 = new Match ("Martin");
+        users.push(match3)
+        return res.status(201).send(match3)
     }
 };
 
 
-// curl -H "Authorization: jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJib2R5Ijoic3R1ZmYiLCJpYXQiOjE2MDI3ODg3NzJ9.S9pXqz-mCvMtGC8MWc7ZjV6XghrvWvdUCy-Xm5eucWE" http://localhost:3000/users/1/matches
-// curl -X "DELETE" -H "Authorization: jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJib2R5Ijoic3R1ZmYiLCJpYXQiOjE2MDI3ODg3NzJ9.S9pXqz-mCvMtGC8MWc7ZjV6XghrvWvdUCy-Xm5eucWE" http://localhost:3000/users/1/matches/Jeppe
+// curl -H "Authorization: jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJib2R5Ijoic3R1ZmYiLCJpYXQiOjE2MDI3ODg3NzJ9.S9pXqz-mCvMtGC8MWc7ZjV6XghrvWvdUCy-Xm5eucWE" http://localhost:3001/users/1/matches
+// curl -X "DELETE" -H "Authorization: jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJib2R5Ijoic3R1ZmYiLCJpYXQiOjE2MDI3ODg3NzJ9.S9pXqz-mCvMtGC8MWc7ZjV6XghrvWvdUCy-Xm5eucWE" http://localhost:3001/users/1/matches/Oskar
 
-// curl -X "POST" -H "Authorization: jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJib2R5Ijoic3R1ZmYiLCJpYXQiOjE2MDI3ODg3NzJ9.S9pXqz-mCvMtGC8MWc7ZjV6XghrvWvdUCy-Xm5eucWE" http://localhost:3000/users/1/matches
+// curl -X "POST" -H "Authorization: jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJib2R5Ijoic3R1ZmYiLCJpYXQiOjE2MDI3ODg3NzJ9.S9pXqz-mCvMtGC8MWc7ZjV6XghrvWvdUCy-Xm5eucWE" http://localhost:3001/users/1/matches
