@@ -5,7 +5,7 @@ const port = 3001
 const fs = require("fs")
 const http = require("http")
 const jwt = require("jsonwebtoken")
-const {getUsers, deleteUser, createUser} = require ("./usersEndpoints")
+const {getUsers, deleteUser, createUser, getImage} = require ("./usersEndpoints")
 const {getInterests, deleteInterest, createInterest} = require("./interestsEndpoints")
 const {getMatches, deleteMatch, newMatch} = require("./matchesEndpoint")
 
@@ -13,14 +13,15 @@ const {getMatches, deleteMatch, newMatch} = require("./matchesEndpoint")
 app.get("/users", isAuthorized, getUsers )
 app.delete("/users/:userID", isAuthorized, deleteUser )
 app.post("/users", isAuthorized, createUser )
+app.get("/users/:userID/images", isAuthorized, getImage )
 
 app.get("/users/:userID/interests", isAuthorized, getInterests )
 app.delete("/users/:userID/interests/:interest", isAuthorized, deleteInterest )
 app.post("/users/:userID/interests", isAuthorized, createInterest )
 
 app.get("/users/:userID/matches", isAuthorized, getMatches )
-app.delete("/users/:userID/matches/;match", isAuthorized, deleteMatch )
-app.post("/users/userID/matches", isAuthorized, newMatch )
+app.delete("/users/:userID/matches/:match", isAuthorized, deleteMatch )
+app.post("/users/:userID/matches", isAuthorized, newMatch )
 
 
 
@@ -40,9 +41,7 @@ function isAuthorized ( req, res, next ){
             if (err){
                 res.status(401).json({error : "Not authorized"})
             }
-
             console.log(decoded);
-
             next();
         })
     } else {
