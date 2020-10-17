@@ -3,7 +3,7 @@ class User {
     interests = [];
     matches = [];
     images = [];
-    
+    creditCard= [];
 
     constructor (firstName, lastName, gender, birthDay, userID){
         this.firstName = firstName;
@@ -29,7 +29,7 @@ class User {
 }
 
 class PaymentUser extends User {
-    creditCard= [];
+    
     constructor (firstName, lastName, gender, birthDay, userID){
         super (firstName, lastName, gender, birthDay, userID)
        
@@ -83,6 +83,10 @@ const image1= new Images ("src = url1");
 const image2 = new Images("src = url2");
 const images = [image1, image2];
 
+const creditCard1 = new CreditCard("Victoria Skjøren", 1234567891023, 123);
+const creditCards = [creditCard1];
+
+
 const user1 = new PaymentUser("Victoria", "Skjøren", "female", [2000, 05, 12], 1);
 const user2 = new FreeUser("Hayley", "Sugden", "female", [2001, 11,27], 2);
 const users = [user1, user2];
@@ -98,6 +102,8 @@ user2.matches = [match1, match2];
 user1.images = [image1];
 user2.images = [image2];
 
+user1.creditCard = [creditCard1];
+
 
 module.exports = {
     getUsers() {
@@ -112,8 +118,12 @@ module.exports = {
     },
     getImage(){
         return images;
+    },
+    getCreditCardInfo(){
+        return creditCards;
 
     },
+
 
     FreeUser: FreeUser,
     PaymentUser: PaymentUser,

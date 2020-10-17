@@ -7,9 +7,6 @@ module.exports = {
         const userID = req.params.userID
         console.log (userID);
         for (i =0; i < users.length; i++) {
-            //returnerer ikke 404 selvom array er tom
-            if (users[i].matches === [""])
-                return res.status(404).send("This user has 0 matches");
             if (users[i].userID == userID)  {
                 return res.status(200).send(users[i].matches);
             }

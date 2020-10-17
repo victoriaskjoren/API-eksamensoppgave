@@ -3,17 +3,18 @@ const express = require ("express")
 const app = express()
 const port = 3001
 const fs = require("fs")
-const http = require("http")
 const jwt = require("jsonwebtoken")
-const {getUsers, deleteUser, createUser, getImage} = require ("./usersEndpoints")
+const {getUsers, deleteUser, createUser, getImage, getCreditCardInfo} = require ("./usersEndpoints")
 const {getInterests, deleteInterest, createInterest} = require("./interestsEndpoints")
 const {getMatches, deleteMatch, newMatch} = require("./matchesEndpoint")
+
 
 
 app.get("/users", isAuthorized, getUsers )
 app.delete("/users/:userID", isAuthorized, deleteUser )
 app.post("/users", isAuthorized, createUser )
 app.get("/users/:userID/images", isAuthorized, getImage )
+app.get("/users/:userID/creditcard", isAuthorized, getCreditCardInfo )
 
 app.get("/users/:userID/interests", isAuthorized, getInterests )
 app.delete("/users/:userID/interests/:interest", isAuthorized, deleteInterest )
