@@ -35,11 +35,11 @@ class PaymentUser extends User {
        
         }
         checkCardNumber() {
-            if (this.cardNumber.length != int)
+            if (this.cardNumber.length != 12)
             return res.status(401).send("Cardnumber must be x digits");
         }
         checkCcv(){
-            if (this.ccv.length === 3)
+            if (this.ccv.length != 3)
             return res.status(401).send("Ccv must be 3 digits");
     }
     
@@ -79,6 +79,7 @@ const match1 = new Match ("Jeppe");
 const match2 = new Match ("Oskar");
 const matches = [match1, match2];
 
+// her kunne man lagt inn et ordentlig bilde, men nå sendes bare en string
 const image1= new Images ("src = url1");
 const image2 = new Images("src = url2");
 const images = [image1, image2];
